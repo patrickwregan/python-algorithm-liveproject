@@ -1,1 +1,50 @@
+class NaryNode:
+    indent = 2
+    def __init__(self, value):
+        self.value = value
+        self.children = []
 
+    def add_child(self, child):
+        self.children.append(child)
+
+    # Return a string representation of the node and its children.
+    def __str__(self, level=0):
+        result = f'{" " * (level * NaryNode.indent)}' + f'{self.value}:\n'
+        for child in self.children:
+            # result += f'{" " * ((level + 1) * NaryNode.indent)}' + f' {child.value}\n'
+            result += child.__str__(level + 1)
+        return result
+
+# Build a test tree.
+#      Root
+#        |
+#     +--+--+
+#     A  B  C
+#     |     |
+#    +-+    +
+#    D E    F
+#    |      |
+#    +     +-+
+#    G     H I
+root = NaryNode('Root')
+a = NaryNode('A')
+b = NaryNode('B')
+c = NaryNode('C')
+d = NaryNode('D')
+e = NaryNode('E')
+f = NaryNode('F')
+g = NaryNode('G')
+h = NaryNode('H')
+i = NaryNode('I')
+
+root.add_child(a)
+root.add_child(b)
+root.add_child(c)
+a.add_child(d)
+a.add_child(e)
+c.add_child(f)
+d.add_child(g)
+f.add_child(h)
+f.add_child(i)
+
+print(root)
